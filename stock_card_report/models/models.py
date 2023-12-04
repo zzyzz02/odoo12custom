@@ -51,14 +51,14 @@ class StockCardReportWizard(models.TransientModel):
             elif move.location_dest_id.id == location_id:
                 beginning_qty += move.product_uom_qty
 
-            DATA_REPORT_LINE.append({
-                'date'              : tmp_start_date.strftime("%Y-%m-%d %H:%M:%S"),
-                'operation'         : 'Beginning Balance',
-                'reference'         : 'Beginning Balance',
-                'move_in'           : beginning_qty if beginning_qty > 0 else 0,
-                'move_out'          : beginning_qty if beginning_qty < 0 else 0,
-                'balance_qty'       : beginning_qty,
-            })
+        DATA_REPORT_LINE.append({
+            'date'              : tmp_start_date.strftime("%Y-%m-%d %H:%M:%S"),
+            'operation'         : 'Beginning Balance',
+            'reference'         : 'Beginning Balance',
+            'move_in'           : beginning_qty if beginning_qty > 0 else 0,
+            'move_out'          : beginning_qty if beginning_qty < 0 else 0,
+            'balance_qty'       : beginning_qty,
+        })
 
         balance_qty = beginning_qty
         is_mutation = False
