@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <record id="paperformat_a4_landscape" model="report.paperformat">
+            <field name="name">A4 Landscape</field>
+            <field name="format">A4</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">53</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">10</field>
+            <field name="dpi">90</field>
+        </record>
+    </data>
+
+    <report string="Bukti Permintaan dan Pengeluaran" id="action_bukti_permintaan_pengeluaran" model="stock.picking" report_type="qweb-pdf" name="custom_inventory_transfer.bukti_permintaan_pengeluaran_report" file="custom_inventory_transfer.bukti_permintaan_pengeluaran_report" paperformat="custom_inventory_transfer.paperformat_a4_landscape" menu="True" print_report_name="'Bukti Permintaan dan Pengeluaran - %s - %s' % (object.partner_id.name or '', object.name)" />
+
+
+
+    <template id="permintaan_pengeluaran_footer">
+        <!-- <style>
+    
+        </style> -->
+
+        <div class="footer">
+            <table class="text-center mt-3 table table-borderless keep-together last-page">
+                <tr style="font-size: 13px;">
+                    <td style="padding:0;" width="25%">Kasubag</td>
+                    <td style="padding:0;" width="25%">Kabag</td>
+                    <td style="padding:0;" width="25%">Direktur Teknik</td>
+                    <td style="padding:0;" width="25%">Kasubag Perbekalan</td>
+                </tr>
+                <tr style="font-size: 13px;">
+                    <td style="padding:0;">
+                    Pemasg dan dan Perihal Sambg Pelanggan
+                    </td>
+                    <td style="padding:0;">Transmisi Dan Distribusi</td>
+                    <td style="color: white;padding:0;" colspan="2">
+                    .
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: white;padding:0;" colspan="4">
+                    .
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:0;color: white;" colspan="4">
+                    .
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:0;">
+                        <span style="border-bottom: 1px solid black;">DWI SOEHARYANTO</span>
+                    </td>
+                    <td style="padding:0;">
+                        <span style="border-bottom: 1px solid black;">ADI PRATIKSNO</span>
+                    </td>
+                    <td style="padding:0;">
+                        <span style="border-bottom: 1px solid black;">TARMIYONO, ST, SH</span>
+                    </td>
+                    <td style="padding:0;">
+                        <span style="border-bottom: 1px solid black;">SETYO HIRMAWAN</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:0;">
+                    NPP: 76 01 28
+                    </td>
+                    <td style="padding:0;">
+                    NPP: 71 01 21
+                    </td>
+                    <td style="padding:0;color: white;">
+                    .
+                    </td>
+                    <td style="padding:0;">
+                    NPP: 72 01 42
+                    </td>
+                </tr>
+                <tr style="font-size: 13px;">
+                    <td style="padding:0;">
+                    Barang<sub style="top: -5px;">2</sub> tsb telah diterima oleh:
+                    </td>
+                    <td colspan="3" style="padding:0;color: white;">
+                    .
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:0;color: white;" colspan="4">
+                    .
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:0;color: white;" colspan="4">
+                    .
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:0;">
+                    (..............................................)
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+    </template>
+    <template id="basic_layout_2">
+        <t t-call="web.html_container">
+            <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-raw="0"/>
+            </div>
+            <t t-call="custom_inventory_transfer.permintaan_pengeluaran_footer" />
+        </t>
+
+    </template>
+
+
+
+    <template id="bukti_permintaan_pengeluaran_report">
+
+        <t t-foreach="docs" t-as="o">
+            <t t-call="custom_inventory_transfer.basic_layout_2">
+                <div class="page">
+                    <style>
+                    .table td {
+                        padding: 1px;
+                        vertical-align: middle !important;
+                    }
+
+
+                    .table th {
+                        padding: 1px;
+                        vertical-align: middle !important;
+                    }
+
+                    .table-header {
+                        font-weight: bold;
+                        
+                    }
+
+                    table.table-bordered {
+                        border: 1px solid black;
+                    }
+
+                    table.table-bordered>thead>tr>th {
+                        border: 1px solid black;
+                        text-align: center;
+                        background-color: #eeeeee;
+                    }
+
+                    table.table-bordered>tbody>tr>td {
+                        border: 1px solid black;
+                        padding-left: 5px;
+                    }
+
+                    td.text-right {
+                        padding-left: 0;
+                        padding-right: 5px;
+                    }
+
+                    .keep-together {
+                        page-break-inside: avoid;
+                        break-inside: avoid;
+                    }
+
+                    .keep-together tr {
+                        page-break-inside: avoid;
+                        break-inside: avoid;
+                    }
+
+                    .keep-together td {
+                        page-break-inside: avoid;
+                        break-inside: avoid;
+                    }
+
+                    </style>
+
+                    <table class="table table-header table-borderless">
+                        <tr>
+                            <td class="text-right" width="60%">
+                                <span>BUKTI PENERIMAAN DAN PENGELUARAN</span>
+                            </td>
+                            <td style="color: white;" width="5%">
+                    .
+                            </td>
+                            <td class="text-center" style="border:3px solid black;" width="10%">
+                    UMUM
+                            </td>
+                            <td style="color: white;" width="2%">
+                    .
+                            </td>
+                            <td>
+                    B.P.P NO.
+                            </td>
+
+                            <td>
+                                <span t-field="o.name"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="mb-0 table-bordered table">
+                        <thead>
+                            <tr>
+                                <th rowspan="3">
+                        NO.
+                                </th>
+                                <th colspan="3">
+                        P E R M I N T A A N
+                                </th>
+                                <th width="22%" rowspan="3">
+                        U R A I A N
+                                </th>
+                                <th colspan="4">
+                        P E N G E L U A R A N
+                                </th>
+                                <th rowspan="3">
+                        KETERANGAN
+                                </th>
+                            </tr>
+                            <tr>
+                                <th width="17%" rowspan="2">
+                        Banyaknya
+                                </th>
+                                <th rowspan="2">
+                        Satuan
+                                </th>
+                                <th rowspan="2">
+                        Kode
+                                </th>
+                                <th width="17%" rowspan="2">
+                        Banyaknya
+                                </th>
+                                <th rowspan="2">
+                        Satuan
+                                </th>
+                                <th rowspan="2">
+                        Harga <br />
+                        Satuan
+                                </th>
+                                <th>
+                        Jumlah
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                        Rp.
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="counter" t-value="1"/>
+                            <t t-set="section_counter" t-value="1"/>
+                            <t t-foreach="o.move_ids_without_package" t-as="move">
+                                <t t-if="move.display_type == 'line_section'">
+                                    <tr class="font-weight-bold">
+                                        <td class="text-center">
+                                            <t t-esc="o.get_angka_ke_romawi(section_counter)"/>
+                                        </td>
+                                        <td style="padding-left: 35px;" colspan="9">
+                                            <span t-field="move.name"/>
+                                        </td>
+                                    </tr>
+                                    <t t-set="section_counter" t-value="section_counter + 1"/>
+                                    <t t-set="counter" t-value="1"/>
+                                </t>
+                                <t t-elif="move.display_type != 'line_section' and move.state != 'cancel'">
+                                    <tr>
+                                        <td class="text-center">
+                                            <t t-esc="counter"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="move.product_uom_qty"/>
+ (                                            <span t-esc="o.get_angka_ke_terbilang(move.product_uom_qty)"/>
+)
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="move.product_uom.name"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="move.product_id.default_code"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="move.product_id.display_name"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="move.quantity_done"/>
+    (                                            <span t-esc="o.get_angka_ke_terbilang(move.quantity_done)"/>
+)
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="move.product_uom.name"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-set="price_unit" t-value="move.price_unit"/>
+
+                                            <t t-if="move.price_unit != 0">
+                                                <span t-field="move.price_unit" t-options="{'widget':'float', 'precision':1}"/>
+                                            </t>
+                                            <t t-else="">
+                                                <span t-field="move.product_id.lst_price" t-options="{'widget':'float', 'precision':1}"/>
+                                                <t t-set="price_unit" t-value="move.product_id.lst_price"/>
+                                            </t>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="price_unit * move.quantity_done" t-options="{'widget':'float', 'precision':1}"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="move.keterangan"/>
+                                        </td>
+                                    </tr>
+                                    <t t-set="counter" t-value="counter + 1"/>
+                                </t>
+
+
+
+                            </t>
+
+
+                            <!-- <tr class="font-weight-bold">
+                                <td class="text-center">I</td>
+                                <td style="padding-left: 35px;" colspan="9">
+                        INSTALASI DINAS
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">1</td>
+                                <td>1 (satu)</td>
+                                <td class="text-center">Buah</td>
+                                <td class="text-center">S.S</td>
+                                <td>Clamp Sadle</td>
+                                <td>1 (satu)</td>
+                                <td class="text-center">Buah</td>
+                                <td class="text-right">50.000</td>
+                                <td class="text-right">50.000</td>
+                                <td>No Meter : YEY</td>
+                            </tr> -->
+                            <tr>
+                                <td colspan="10">
+                                    <span class="font-weight-bold">Alamat Pemasangan :</span>
+                                    <span t-field="o.partner_id.name"/>
+ -
+                                    <span t-field="o.partner_id.street"/>
+                                    <span t-field="o.partner_id.street2"/>
+                                    <span t-field="o.partner_id.city"/>
+ -                                    <span t-field="o.partner_id.vat"/>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="10">
+                                    <span class="font-weight-bold">Pelaksana :</span>
+                                    <span t-field="o.pelaksana"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="mt-0 table table-borderless">
+                        <tr style="font-size: 13px;">
+                            <td width="50%" style="padding-left: 5px;">Diminta Oleh : 
+                                <span t-if="o.diminta_oleh" t-esc="o.diminta_oleh.strftime('%d-%m-%Y')"/>
+                            </td>
+                            <td>Dikeluarkan Oleh : 
+                                <span t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </div>
+
+            </t>
+        </t>
+    </template>
+
+</odoo>

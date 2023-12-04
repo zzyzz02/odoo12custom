@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <record id="paperformat_a4_no_header" model="report.paperformat">
+            <field name="name">A4 No Headere</field>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">10</field>
+            <field name="dpi">90</field>
+        </record>
+    </data>
+
+    <report string="Laporan Penerimaan Barang" id="action_laporan_penerimaan_barang" model="stock.picking" report_type="qweb-pdf" name="custom_inventory_transfer.laporan_penerimaan_barang_report" file="custom_inventory_transfer.laporan_penerimaan_barang_report" paperformat="custom_inventory_transfer.paperformat_a4_no_header" menu="True" print_report_name="'LPB - %s - %s' % (object.partner_id.name or '', object.name)" />
+
+
+
+
+    <template id="laporan_penerimaan_barang_report">
+
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <style>
+                        .table td {
+                            padding: 0px;
+                            vertical-align: middle;
+                        }
+
+                        .table th {
+                            padding: 0px;
+                            vertical-align: middle !important;
+                        }
+
+                        .table-bordered td,
+                        .table-bordered th {
+                            border: 1px solid black !important;
+                            padding: 0 5px;
+                        }
+
+                        .table-bordered th {
+                            border: 1px solid black !important;
+                            padding: 0 5px;
+                            font-weight: 400;
+                        }
+
+                        .table-footer {
+                            border: 1px solid black;
+                        }
+
+                        .table-footer td {
+                            padding: 0px;
+                            vertical-align: bottom;
+                        }
+
+                        .keep-together {
+                            page-break-inside: avoid;
+                            break-inside: avoid;
+                        }
+
+                        .keep-together tr {
+                            page-break-inside: avoid;
+                            break-inside: avoid;
+                        }
+
+                        .keep-together td {
+                            page-break-inside: avoid;
+                            break-inside: avoid;
+                        }
+                    </style>
+
+                    <table class=" table table-borderless">
+                        <tr>
+                            <td>PERUSAHAAN UMUM DAERAH AIR MINUM</td>
+                            <td>APP :</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span style="padding-left: 25px;">KOTA MADIUN</span>
+                            </td>
+                            <td>
+                    LPB NO : <span t-field="o.name" />
+                            </td>
+                        </tr>
+                    </table>
+
+                    <h4 class="text-center mt-2">LAPORAN PENERIMAAN BARANG ( LPB ) MADIUN, 
+                        <t t-if="o.date_done">
+                            <span t-esc="o.date_done.strftime('%B %Y')" />
+                        </t>
+                        <t t-else="">
+                            <span t-esc="o.scheduled_date.strftime('%B %Y')" />
+                        </t>
+                    </h4>
+
+                    <table class="mb-0 table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="width: 5%;" colspan="2">
+                        PENGIRIM
+                                </th>
+                                <th colspan="2">
+                                    <span t-field="o.partner_id.name" />
+                                </th>
+                                <th>
+                        Surat Pesanan
+                                </th>
+                                <th>
+                        Bukti Penerimaan Barang
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="2">
+                        ALAMAT
+                                </th>
+                                <th colspan="2">
+                                    <span t-field="o.partner_id.street" />
+                                    <span t-field="o.partner_id.street2" />
+                                    <span t-field="o.partner_id.city" />
+                                    <span t-field="o.partner_id.state_id.name" />
+                                </th>
+                                <th>
+                        No. <span t-field="o.origin" />
+                                </th>
+                                <th>
+                        No. <span t-field="o.name" />
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center">
+                                <td>
+                        No Urut.
+                                </td>
+                                <td>
+                        Volume
+                                </td>
+                                <td>
+                        Unit
+                                </td>
+                                <td>
+                        Kode
+                                </td>
+                                <td style="width: 30%;">
+                        Uraian
+                                </td>
+                                <td style="width: 20%;">
+                        Keterangan
+                                </td>
+                            </tr>
+                            <t t-set="counter" t-value="1" />
+                            <tr t-foreach="o.move_ids_without_package.filtered(lambda x: x.display_type != 'line_section' and x.state != 'cancel')" t-as="line">
+                                <td class="text-center">
+                                    <span t-esc="counter" />
+                                </td>
+                                <td class="text-center">
+                                    <span t-esc="line.quantity_done" />
+                                </td>
+                                <td class="text-center">
+                                    <span t-esc="line.product_uom.name" />
+                                </td>
+                                <td class="text-center">
+                                    <span t-esc="line.product_id.default_code" />
+                                </td>
+                                <td>
+                                    <span t-esc="line.product_id.display_name" />
+                                </td>
+                                <td>
+                                    <span t-esc="line.keterangan" />
+                                </td>
+                                <t t-set="counter" t-value="counter + 1" />
+                            </tr>
+                            <tr style="color:white;" t-foreach="range(0, 10 - counter)" t-as="i">
+                                <td class="text-center">
+                                    .
+                                </td>
+                                <td class="text-center">
+                                .
+                                </td>
+                                <td class="text-center">
+                                .
+                                </td>
+                                <td class="text-center">
+                                .
+                                </td>
+                                <td>
+                                .
+                                </td>
+                                <td>
+                                .
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <table class="keep-together mt-0 table table-borderless table-footer">
+                        <tr class="text-center">
+                            <td colspan="4">
+                    Diterima Oleh :
+                            </td>
+                            <td>
+                    Telah Di Cek Kebenarannya :
+                            </td>
+                            <td>
+                    Dicatat Oleh :
+                            </td>
+                        </tr>
+                        <tr class="text-center">
+                            <td style="height: 70px;" colspan="4">
+                                <span style="border-bottom: 1px solid black;">
+                        SETIYO HIRMAWAN
+                                </span>
+                            </td>
+                            <td>
+                                <span style="border-bottom: 1px solid black;">
+                        BUDI WAHYUNI SUSANTI, ST
+                                </span>
+                            </td>
+                            <td>
+                                <span style="border-bottom: 1px solid black;">
+                        EMHA WAHYU DWI A
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="text-center" style="font-size: 12px;">
+                            <td colspan="4">
+                    NPP. 72 01 42
+                            </td>
+                            <td>
+                    NPP. 68 01 19
+                            </td>
+                            <td>
+                    NPP. 96 02 13
+                            </td>
+                        </tr>
+                    </table>
+
+
+
+                </div>
+
+            </t>
+        </t>
+    </template>
+
+</odoo>
