@@ -92,4 +92,4 @@ class StockCardReportWizard(models.TransientModel):
             'lines'            : self._get_data_report(),
         }
 
-        return self.env.ref('stock_card_report.action_stock_card_report').report_action(self, data=data)
+        return self.env.ref('kartu_barang_report.action_stock_card_report').report_action(self, data=data)

@@ -17,7 +17,7 @@
     </data>
 
 
-    <report string="KARTU BARANG" id="action_stock_card_report" model="stock.card.report.wizard" report_type="qweb-pdf" name="stock_card_report.stock_card_report" file="stock_card_report.stock_card_report" menu="True" print_report_name="'KARTU BARANG - %s' % (object.product_id.name)" paperformat="stock_card_report.paperformat_a4_no_header" />
+    <report string="KARTU BARANG" id="action_stock_card_report" model="stock.card.report.wizard" report_type="qweb-pdf" name="kartu_barang_report.stock_card_report" file="kartu_barang_report.stock_card_report" menu="True" print_report_name="'KARTU BARANG - %s' % (object.product_id.name)" paperformat="kartu_barang_report.paperformat_a4_no_header" />
 
 
 
