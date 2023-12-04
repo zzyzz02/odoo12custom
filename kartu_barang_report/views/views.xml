@@ -1,7 +1,7 @@
 <odoo>
   <record id="stock_card_action" model="ir.actions.act_window">
     <field name="name">Kartu Barang</field>
-    <field name="res_model">stock.card.report.wizard</field>
+    <field name="res_model">kartu.barang.report.wizard</field>
     <field name="view_mode">form</field>
     <field name="domain">[]</field>
     <field name="context">{}</field>
@@ -11,8 +11,8 @@
 
 
   <record id="stock_card_report_wizard_view_form" model="ir.ui.view">
-    <field name="name">stock.card.report.wizard.view.form</field>
-    <field name="model">stock.card.report.wizard</field>
+    <field name="name">kartu.barang.report.wizard.view.form</field>
+    <field name="model">kartu.barang.report.wizard</field>
     <field name="arch" type="xml">
       <form string="">
         <group>

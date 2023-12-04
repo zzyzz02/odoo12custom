@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_stock_card_report_wizard_user,kartu_barang_report.stock.card.report.wizard,model_stock_card_report_wizard,base.group_user,1,1,1,1
+access_kartu_barang_report_wizard_user,kartu_barang_report.kartu.barang.report.wizard,model_kartu_barang_report_wizard,base.group_user,1,1,1,1

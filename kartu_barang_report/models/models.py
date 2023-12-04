@@ -4,7 +4,7 @@ from odoo import models, fields, api
 from datetime import datetime, timedelta
 
 class StockCardReportWizard(models.TransientModel):
-    _name = 'stock.card.report.wizard'
+    _name = 'kartu.barang.report.wizard'
 
     product_id = fields.Many2one('product.product', string='Product', required=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env.user.company_id)
